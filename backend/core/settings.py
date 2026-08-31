@@ -261,15 +261,16 @@ SPECTACULAR_SETTINGS = {
     'SCHEMA_PATH_PREFIX': r'/api/v1/',
 }
 
-# ── Logging ───────────────────────────────────────────────────────────────────
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
+
     'filters': {
         'sensitive_data': {
             '()': 'core.logging_filters.SensitiveDataFilter',
         },
     },
+
     'formatters': {
         'verbose': {
             'format': '{levelname} {asctime} {name} {module} {message}',
@@ -280,33 +281,30 @@ LOGGING = {
             'style': '{',
         },
     },
+
     'handlers': {
         'console': {
             'class': 'logging.StreamHandler',
             'formatter': 'verbose',
             'filters': ['sensitive_data'],
         },
-        'file_errors': {
-            'class': 'logging.FileHandler',
-            'filename': BASE_DIR / 'logs' / 'errors.log',
-            'formatter': 'verbose',
-            'filters': ['sensitive_data'],
-            'level': 'ERROR',
-        },
     },
+
     'loggers': {
         'api.errors': {
-            'handlers': ['console', 'file_errors'],
+            'handlers': ['console'],
             'level': 'WARNING',
             'propagate': False,
         },
+
         'django.server': {
             'handlers': ['console'],
             'level': 'WARNING',
             'propagate': False,
         },
+
         'django.request': {
-            'handlers': ['console', 'file_errors'],
+            'handlers': ['console'],
             'level': 'ERROR',
             'propagate': False,
         },
