@@ -1,0 +1,29 @@
+{% load i18n %}
+{% if app_list %}
+  <div class="aa-app-grid">
+    {% for app in app_list %}
+      <section class="aa-app-card" aria-labelledby="app-{{ app.app_label }}">
+        <header class="aa-app-card__header">
+          <h2 id="app-{{ app.app_label }}"><a href="{{ app.app_url }}">{{ app.name }}</a></h2>
+          <a class="aa-app-card__all" href="{{ app.app_url }}">View all</a>
+        </header>
+        <div class="aa-model-list">
+          {% for model in app.models %}
+            <div class="aa-model-row">
+              <span class="aa-model-icon" aria-hidden="true">{{ model.name|slice:":1" }}</span>
+              <div class="aa-model-name">
+                {% if model.admin_url %}<a href="{{ model.admin_url }}"{% if model.admin_url in request.path|urlencode %} aria-current="page"{% endif %}>{{ model.name }}</a>{% else %}{{ model.name }}{% endif %}
+              </div>
+              <div class="aa-model-actions">
+                {% if model.admin_url %}<a href="{{ model.admin_url }}">{% if model.view_only %}{% translate 'View' %}{% else %}{% translate 'Manage' %}{% endif %}</a>{% endif %}
+                {% if model.add_url %}<a class="aa-add-link" href="{{ model.add_url }}" aria-label="{% blocktranslate with name=model.name %}Add {{ name }}{% endblocktranslate %}">+</a>{% endif %}
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </section>
+    {% endfor %}
+  </div>
+{% else %}
+  <div class="aa-empty-state"><h2>{% translate 'No admin access available' %}</h2><p>{% translate 'You don’t have permission to view or edit any records.' %}</p></div>
+{% endif %}

@@ -1,0 +1,27 @@
+{% extends "admin/base_site.html" %}
+
+{% block content %}
+<section class="aa-dashboard-intro">
+  <div>
+    <p class="aa-eyebrow">Aparna Aura administration</p>
+    <h1>Store dashboard</h1>
+    <p>Manage the records behind your storefront: catalogue, orders, payments and customer accounts.</p>
+  </div>
+  <div class="aa-dashboard-intro__actions">
+    <a class="button aa-button-secondary" href="{% url 'admin:products_product_add' %}">Add product</a>
+    <a class="button default" href="{% url 'admin:orders_order_changelist' %}">Open orders</a>
+  </div>
+</section>
+
+<section class="aa-quick-actions" aria-label="Primary store areas">
+  <a href="{% url 'admin:products_product_changelist' %}" class="aa-quick-card"><span class="aa-quick-card__icon">01</span><span><strong>Catalogue</strong><small>Products and collections</small></span><b>→</b></a>
+  <a href="{% url 'admin:orders_order_changelist' %}" class="aa-quick-card"><span class="aa-quick-card__icon">02</span><span><strong>Orders</strong><small>Fulfilment and delivery</small></span><b>→</b></a>
+  <a href="{% url 'admin:payments_transaction_changelist' %}" class="aa-quick-card"><span class="aa-quick-card__icon">03</span><span><strong>Payments</strong><small>Transactions and status</small></span><b>→</b></a>
+  <a href="{% url 'admin:users_user_changelist' %}" class="aa-quick-card"><span class="aa-quick-card__icon">04</span><span><strong>Customers</strong><small>Accounts and addresses</small></span><b>→</b></a>
+</section>
+
+<section class="aa-management">
+  <div class="aa-section-heading"><div><p class="aa-eyebrow">Workspace</p><h2>All management areas</h2></div><p>Open a section to view, add or update its records.</p></div>
+  {% include "admin/app_list.html" with app_list=app_list show_changelinks=True %}
+</section>
+{% endblock %}

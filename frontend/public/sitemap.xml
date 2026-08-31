@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Core Static Pages -->
+  <sitemap>
+    <loc>https://aparnaaura.com/sitemap-pages.xml</loc>
+    <lastmod>2026-07-28</lastmod>
+  </sitemap>
+  
+  <!-- Dynamic Products (Placeholder for future backend generation) -->
+  <sitemap>
+    <loc>https://aparnaaura.com/sitemap-products.xml</loc>
+    <lastmod>2026-07-28</lastmod>
+  </sitemap>
+
+  <!-- Dynamic Categories (Placeholder for future backend generation) -->
+  <sitemap>
+    <loc>https://aparnaaura.com/sitemap-categories.xml</loc>
+    <lastmod>2026-07-28</lastmod>
+  </sitemap>
+</sitemapindex>

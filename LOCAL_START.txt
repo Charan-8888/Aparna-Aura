@@ -1,0 +1,36 @@
+APARNA AURA — LOCAL START
+
+1) BACKEND
+   Open Terminal/PowerShell in: Jewellery Web/backend
+   Activate your Python environment, then run:
+       python manage.py migrate
+       python manage.py runserver
+
+   Open Django Admin:
+       http://127.0.0.1:8000/admin/
+
+2) IMPORT THE AURA PRODUCTS ONCE
+   In Admin go to:
+       Products -> Products -> Import Aura products
+   Or open:
+       http://127.0.0.1:8000/admin/products/product/aura-product-pack/
+
+   Click the import/apply button. The pack contains 65 product listings and 113 HD images.
+
+3) CHECK THE API
+   Open:
+       http://127.0.0.1:8000/api/v1/products/
+   You should see JSON product data after import.
+
+4) FRONTEND
+   Open another Terminal/PowerShell in: Jewellery Web/frontend
+   Run:
+       npm install
+       npm run dev
+
+   Open the URL Vite prints, normally:
+       http://localhost:5173/
+
+IMPORTANT
+- Restart `npm run dev` after changing frontend/.env because Vite reads .env at startup.
+- If the shop still shows Network Error, first verify the products API URL above opens in the browser.

@@ -1,0 +1,63 @@
+{% extends "admin/base_site.html" %}
+{% load static %}
+
+{% block title %}Aura category image pack | {{ site_title|default:_('Django site admin') }}{% endblock %}
+
+{% block extrastyle %}
+  {{ block.super }}
+  <style>
+    .aura-pack-wrap { max-width: 1180px; }
+    .aura-pack-intro { margin: 0 0 22px; max-width: 850px; color: var(--body-quiet-color); line-height: 1.6; }
+    .aura-pack-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 16px; margin: 22px 0 26px; }
+    .aura-pack-card { overflow: hidden; border: 1px solid var(--hairline-color); border-radius: 12px; background: var(--body-bg); }
+    .aura-pack-card img { display: block; width: 100%; aspect-ratio: 5 / 4; object-fit: cover; background: #f4f1ec; }
+    .aura-pack-meta { padding: 12px 14px 14px; }
+    .aura-pack-meta strong { display: block; margin-bottom: 4px; font-size: 14px; }
+    .aura-pack-meta span { color: var(--body-quiet-color); font-size: 12px; }
+    .aura-pack-actions { padding: 18px; border: 1px solid var(--hairline-color); border-radius: 12px; background: var(--darkened-bg); }
+    .aura-pack-actions label { display: flex; align-items: flex-start; gap: 9px; margin-bottom: 16px; line-height: 1.45; }
+    .aura-pack-actions input[type="checkbox"] { margin-top: 3px; }
+    .aura-pack-note { margin-top: 12px; color: var(--body-quiet-color); font-size: 12px; line-height: 1.5; }
+  </style>
+{% endblock %}
+
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+  <a href="{% url 'admin:index' %}">Home</a>
+  &rsaquo; <a href="{% url 'admin:app_list' app_label=opts.app_label %}">{{ opts.app_config.verbose_name }}</a>
+  &rsaquo; <a href="{% url 'admin:products_category_changelist' %}">{{ opts.verbose_name_plural|capfirst }}</a>
+  &rsaquo; Aura category image pack
+</div>
+{% endblock %}
+
+{% block content %}
+<div id="content-main" class="aura-pack-wrap">
+  <h1>Apply Aura category images</h1>
+  <p class="aura-pack-intro">
+    This pack contains the ten jewellery category images supplied for Aparna Aura. The source artwork has been cropped to remove the printed category labels and compressed to web-friendly WebP files. Applying the pack uploads each image to Cloudinary and assigns it to the matching category. Missing categories are created automatically.
+  </p>
+
+  <div class="aura-pack-grid">
+    {% for item in pack_items %}
+      <div class="aura-pack-card">
+        <img src="{% static item.static_path %}" alt="{{ item.name }} preview">
+        <div class="aura-pack-meta">
+          <strong>{{ item.name }}</strong>
+          <span>/categories/{{ item.slug }}</span>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
+  <form method="post" class="aura-pack-actions">
+    {% csrf_token %}
+    <label>
+      <input type="checkbox" name="overwrite" checked>
+      <span><strong>Replace existing images for matching categories.</strong><br>Leave this enabled to replace the current category artwork with this Aura image pack.</span>
+    </label>
+    <input type="submit" value="Apply image pack" class="default">
+    <a href="{% url 'admin:products_category_changelist' %}" class="button cancel-link">Cancel</a>
+    <p class="aura-pack-note">Product images, checkout, payments, authentication and order data are not changed by this operation.</p>
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends "admin/base.html" %}
+{% load i18n static %}
+
+{% block title %}{{ title }} | Aparna Aura Studio{% endblock %}
+
+{% block extrastyle %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'admin/css/aparna_admin.css' %}?v=3">
+{% endblock %}
+
+{% block branding %}
+<div class="aa-brand">
+  <a class="aa-brand__mark" href="{% url 'admin:index' %}" aria-label="Aparna Aura Studio home">AA</a>
+  <div class="aa-brand__copy">
+    <a href="{% url 'admin:index' %}">Aparna Aura</a>
+    <span>Commerce Studio</span>
+  </div>
+</div>
+{% endblock %}
+
+{% block welcome-msg %}
+<span class="aa-welcome">{% translate 'Signed in as' %} <strong>{% firstof user.get_short_name user.get_username %}</strong></span>
+{% endblock %}
+
+{% block userlinks %}
+{% if site_url %}<a class="aa-site-link" href="{{ site_url }}">{% translate 'View site' %} <span aria-hidden="true">↗</span></a>{% endif %}
+{% if user.has_usable_password %}<a href="{% url 'admin:password_change' %}">{% translate 'Password' %}</a>{% endif %}
+<form id="logout-form" method="post" action="{% url 'admin:logout' %}">{% csrf_token %}<button type="submit">{% translate 'Sign out' %}</button></form>
+{% endblock %}
+
+{% block nav-global %}
+<nav class="aa-global-nav" aria-label="Quick management links">
+  <a href="{% url 'admin:index' %}">Overview</a>
+  <a href="{% url 'admin:products_product_changelist' %}">Products</a>
+  <a href="{% url 'admin:orders_order_changelist' %}">Orders</a>
+  <a href="{% url 'admin:users_user_changelist' %}">Customers</a>
+</nav>
+{% endblock %}

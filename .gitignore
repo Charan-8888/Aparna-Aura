@@ -1,0 +1,13 @@
+# Environment files and credentials
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+logs/
+
+# Frontend build artifacts
+node_modules/
+dist/

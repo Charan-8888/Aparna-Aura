@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /
+
+# Disallow internal pages and auth
+Disallow: /login
+Disallow: /register
+Disallow: /cart
+Disallow: /checkout
+Disallow: /orders
+Disallow: /profile
+Disallow: /try-on
+
+Sitemap: https://aparnaaura.com/sitemap.xml

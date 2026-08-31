@@ -1,0 +1,74 @@
+{% extends "admin/base_site.html" %}
+{% load static %}
+
+{% block title %}Import Aura products | {{ site_title|default:_('Django site admin') }}{% endblock %}
+
+{% block extrastyle %}
+  {{ block.super }}
+  <style>
+    .aura-products-wrap { max-width: 1280px; }
+    .aura-products-intro { max-width: 930px; color: var(--body-quiet-color); line-height: 1.65; }
+    .aura-summary { display:flex; flex-wrap:wrap; gap:10px; margin:18px 0 8px; }
+    .aura-summary span { padding:7px 11px; border:1px solid var(--hairline-color); border-radius:999px; background:var(--darkened-bg); font-size:12px; }
+    .aura-products-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:16px; margin:22px 0 28px; }
+    .aura-product-card { overflow:hidden; border:1px solid var(--hairline-color); border-radius:12px; background:var(--body-bg); }
+    .aura-product-card img { display:block; width:100%; aspect-ratio:4/5; object-fit:cover; background:#f4f1ec; }
+    .aura-product-meta { padding:12px 14px 14px; }
+    .aura-product-meta strong { display:block; margin-bottom:5px; font-size:14px; }
+    .aura-product-meta .category { display:block; color:var(--link-fg); font-size:12px; font-weight:600; margin-bottom:5px; }
+    .aura-product-meta small { color:var(--body-quiet-color); line-height:1.45; }
+    .aura-actions { padding:18px; border:1px solid var(--hairline-color); border-radius:12px; background:var(--darkened-bg); }
+    .aura-actions label { display:flex; align-items:flex-start; gap:9px; margin-bottom:16px; line-height:1.45; }
+    .aura-actions input[type="checkbox"] { margin-top:3px; }
+    .aura-note { margin-top:12px; color:var(--body-quiet-color); font-size:12px; line-height:1.55; max-width:900px; }
+  </style>
+{% endblock %}
+
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+  <a href="{% url 'admin:index' %}">Home</a>
+  &rsaquo; <a href="{% url 'admin:app_list' app_label=opts.app_label %}">{{ opts.app_config.verbose_name }}</a>
+  &rsaquo; <a href="{% url 'admin:products_product_changelist' %}">{{ opts.verbose_name_plural|capfirst }}</a>
+  &rsaquo; Import Aura products
+</div>
+{% endblock %}
+
+{% block content %}
+<div id="content-main" class="aura-products-wrap">
+  <h1>Import Aura products</h1>
+  <p class="aura-products-intro">
+    This importer converts the supplied Aparna Aura photographs into real Django Product and ProductImage records so they are delivered by the existing customer API. Alternate and model photographs are grouped into the same product gallery. Every imported product uses the requested price of ₹0.00, starts with stock 1 so it is visible as available, and can be edited normally after import.
+  </p>
+
+  <div class="aura-summary">
+    <span><strong>{{ product_count }}</strong> product listings</span>
+    <span><strong>{{ image_count }}</strong> HD gallery images</span>
+    <span>Price: <strong>₹0.00</strong></span>
+    <span>Default stock: <strong>1</strong></span>
+  </div>
+
+  <div class="aura-products-grid">
+    {% for item in pack_items %}
+      <article class="aura-product-card">
+        <img loading="lazy" src="{% static item.preview_static_path %}" alt="{{ item.name }} preview">
+        <div class="aura-product-meta">
+          <span class="category">{{ item.category_name }}</span>
+          <strong>{{ item.name }}</strong>
+          <small>{{ item.sku }} · {{ item.image_count }} image{{ item.image_count|pluralize }}</small>
+        </div>
+      </article>
+    {% endfor %}
+  </div>
+
+  <form method="post" class="aura-actions">
+    {% csrf_token %}
+    <label>
+      <input type="checkbox" name="overwrite" checked>
+      <span><strong>Replace galleries for existing Aura-imported products.</strong><br>If this pack has already been imported, leave this enabled to apply the new HD versions and the current names/descriptions.</span>
+    </label>
+    <input type="submit" value="Import products to customer site" class="default">
+    <a href="{% url 'admin:products_product_changelist' %}" class="button cancel-link">Cancel</a>
+    <p class="aura-note">This operation only creates/updates the product catalogue and its images. Cart, checkout, Razorpay, authentication and existing orders are not modified. The source pack contained one sunglasses photograph; it was intentionally excluded because it does not belong to the jewellery/accessory catalogue.</p>
+  </form>
+</div>
+{% endblock %}

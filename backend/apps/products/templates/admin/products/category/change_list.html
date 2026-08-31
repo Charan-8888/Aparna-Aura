@@ -1,0 +1,10 @@
+{% extends "admin/change_list.html" %}
+
+{% block object-tools-items %}
+  <li>
+    <a href="{% url 'admin:products_category_aura_image_pack' %}" class="addlink">
+      Apply Aura category images
+    </a>
+  </li>
+  {{ block.super }}
+{% endblock %}

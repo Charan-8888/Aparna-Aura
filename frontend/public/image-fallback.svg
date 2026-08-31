@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img" aria-labelledby="title desc">
+  <title id="title">Aparna Aura jewellery</title>
+  <desc id="desc">An elegant gold gemstone ring on a deep plum background.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#21131f"/>
+      <stop offset="0.5" stop-color="#4a2944"/>
+      <stop offset="1" stop-color="#120d13"/>
+    </linearGradient>
+    <radialGradient id="gem"><stop stop-color="#fff5ca"/><stop offset="0.35" stop-color="#d8ae3d"/><stop offset="1" stop-color="#8f5a12"/></radialGradient>
+    <filter id="glow"><feGaussianBlur stdDeviation="12"/></filter>
+  </defs>
+  <rect width="1200" height="800" fill="url(#bg)"/>
+  <circle cx="600" cy="395" r="250" fill="#d4af37" opacity=".12" filter="url(#glow)"/>
+  <ellipse cx="600" cy="460" rx="235" ry="145" fill="none" stroke="#d4af37" stroke-width="42"/>
+  <path d="M465 332 600 225 735 332 680 460H520Z" fill="url(#gem)" stroke="#ffe8a1" stroke-width="12"/>
+  <path d="m600 225 80 235M600 225 520 460M465 332h270" stroke="#fff4cf" stroke-width="7" opacity=".7"/>
+  <text x="600" y="680" text-anchor="middle" fill="#f5df91" font-family="Georgia, serif" font-size="34" letter-spacing="10">APARNA AURA</text>
+</svg>
